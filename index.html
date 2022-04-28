@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<title>tetris</title>
+<link rel="manifest" href="manifest.json">
+<canvas id="canvas"></canvas>
+<script>
+    //Service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(function (registration) {
+            console.log('OK:', registration.scope);
+        }).catch(function (err) {
+            console.log('FAILED:', err);
+        });
+    }
+</script>
+<script src="src/app.js"></script>

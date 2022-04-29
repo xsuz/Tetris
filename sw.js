@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'TETRIS_CACHES_v1';
+const CACHE_VERSION = 'tetris_cache_v2';
 const appShellFiles = [
   './index.html',
   './manifest.json',

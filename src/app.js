@@ -30,7 +30,7 @@
     ];
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
-    canvas.width = W * 20;
+    canvas.width = W * 20 + 10*20;
     canvas.height = H * 20;
     
     /** initialize game*/
@@ -45,7 +45,7 @@
             board[W * (y + 1) - 1] = 8;
         }
         gameover = false;
-        current.x = 5, current.y = H - 4;
+        current.x = 5, current.y = 4;
         current.type = Math.floor(Math.random() * 7) + 1;
     }
     
@@ -95,20 +95,21 @@
     
     /** delete completed line */
     function delLine() {
-        for (let y = 1; y < H - 2; y++) {
+        for (let y = H-2; y >=1; y--) {
             let flag = true;
-            for (let x = 1; x < W - 2; x++) {
+            for (let x = 1; x < W-1; x++) {
                 if (board[x + y * W] == 0) {
-                    flag = false
+                    flag = false;
                 }
             }
             if (flag) {
-                for (let Y = y; Y < H - 2; Y++) {
-                    for (let X = 1; X < W - 2; X++) {
-                        board[X + Y * W] = board[X + (Y + 1) * W];
+                console.log("y",y)
+                for (let Y = y; Y >=2 ; Y--) {
+                    for (let X = 1; X < W-1; X++) {
+                        board[X + Y * W] = board[X + (Y - 1) * W];
                     }
                 }
-                y--;
+                y++;
             }
         }
     }
@@ -116,13 +117,14 @@
     /** update game state*/
     function blockDown() {
         delBlock(current);
-        current.y--;
+        current.y++;
         if (!putBlock(current, false)) {
-            current.y++;
+            current.y--;
             putBlock(current, false);
+            console.log("OK");
             delLine();
             current.x = 5;
-            current.y = H - 4;
+            current.y = 4;
             current.type = Math.floor(Math.random() * 7) + 1;
             if (!putBlock(current, false)) {
                 gameover = true;
@@ -138,16 +140,16 @@
         let n = new cursor(current.x, current.y, current.type, current.rotate);
         switch (k) {
             case "ArrowLeft":
-                n.x++;
+                n.x--;
                 break;
             case "ArrowRight":
-                n.x--;
+                n.x++;
                 break;
             case "ArrowUp":
                 n.rotate++;
                 break;
             case "ArrowDown":
-                n.y--;
+                n.y++;
                 break;
             case " ":
             case "Enter":
@@ -180,22 +182,21 @@
         draw();
     }
     
-    let color = "#09D"
     function draw() {
         ctx.beginPath();
         ctx.fillStyle = "#000";
         ctx.rect(20, 20, W * 20 -39, H * 20 -39);
         ctx.fill();
-        for (let i = 1; i < W - 1; i++) {
-            for (let j = 1; j < H - 1; j++) {
+        for (let i = 0; i < W; i++) {
+            for (let j = 0; j < H; j++) {
                 ctx.fillStyle = blocks[board[i + j * W]].color;
                 ctx.beginPath();
-                ctx.rect((W - 1 - i) * 20 + 1, (H - 1 - j) * 20 + 1, 19, 19);
+                ctx.rect(i * 20 + 1, j * 20 + 1, 19, 19);
                 ctx.fill();
             }
         }
     }
-    
+
     document.addEventListener("keydown", function (e) {
         keyCode = e.key;
         console.log(e.key)
@@ -205,6 +206,54 @@
         keyCode = null;
         pressTime = 0;
     })
+
+    let mx=0,my=0,dx=0,dy=0;
+    document.addEventListener("touchstart",(e)=>{
+        mx=e.touches[0].clientX;
+        my=e.touches[0].clientY;
+    })
+    document.addEventListener("touchmove",(e)=>{
+        dx=e.touches[0].clientX-mx;
+        dy=e.touches[0].clientY-my;
+        if(dx>=20 && interval%6==0){
+            processInput("ArrowRight");
+        }else if(dx<=-20 && interval%6==0){
+            processInput("ArrowLeft");
+        }
+        if(dy<=-20 && interval%20==0){
+            processInput("ArrowUp");
+        }else if(dy>=20 && interval%2==0){
+            processInput("ArrowDown");
+        }
+    })
+
+    let isTracking=false;
+    document.addEventListener("mousedown",(e)=>{
+        mx=e.clientX;
+        my=e.clientY;
+        isTracking=true;
+    })
+    document.addEventListener("mousemove",(e)=>{
+        if(!isTracking){
+            return;
+        }
+        dx=e.clientX-mx;
+        dy=e.clientY-my;
+        if(dx>=20 && interval%6==0){
+            processInput("ArrowRight");
+        }else if(dx<=-20 && interval%6==0){
+            processInput("ArrowLeft");
+        }
+        if(dy<=-50 && interval%20==0){
+            processInput("ArrowUp");
+        }else if(dy>=20 && interval%2==0){
+            processInput("ArrowDown");
+        }
+    })
+    document.addEventListener("mouseup",(e)=>{
+        isTracking=false;
+    })
+
     init();
     setInterval(update,20);
 })()

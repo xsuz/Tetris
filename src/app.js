@@ -219,7 +219,7 @@
             processInput("ArrowRight");
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
-        }else if(dy<=-20){
+        }else if(dy<=-window.screen.height/10){
             my=e.touches[0].clientY;
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){

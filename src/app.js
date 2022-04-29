@@ -168,6 +168,7 @@
         draw();
     }
     
+    /** update with key data */
     function update() {
         if (!gameover && !pause) {
             if (keyCode != null)
@@ -182,6 +183,7 @@
         draw();
     }
     
+    /** draw board */
     function draw() {
         ctx.beginPath();
         ctx.fillStyle = "#000";
@@ -197,9 +199,9 @@
         }
     }
 
+    /**handle keyboard */
     document.addEventListener("keydown", function (e) {
         keyCode = e.key;
-        console.log(e.key)
         processInput(e.key);
     }, true);
     document.addEventListener("keyup", function (e) {
@@ -207,6 +209,7 @@
         pressTime = 0;
     })
 
+    /**handle touch screen */
     let mx=0,my=0,dx=0,dy=0;
     document.addEventListener("touchstart",(e)=>{
         mx=e.touches[0].clientX;
@@ -227,6 +230,7 @@
         }
     })
 
+    /**handle mouse */
     let isTracking=false;
     document.addEventListener("mousedown",(e)=>{
         mx=e.clientX;

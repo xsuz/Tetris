@@ -187,8 +187,8 @@
         ctx.fillStyle = "#000";
         ctx.rect(20, 20, W * 20 -39, H * 20 -39);
         ctx.fill();
-        for (let i = 0; i < W; i++) {
-            for (let j = 0; j < H; j++) {
+        for (let i = 1; i < W-1; i++) {
+            for (let j = 1; j < H-1; j++) {
                 ctx.fillStyle = blocks[board[i + j * W]].color;
                 ctx.beginPath();
                 ctx.rect(i * 20 + 1, j * 20 + 1, 19, 19);
@@ -219,7 +219,7 @@
             processInput("ArrowRight");
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
-        }else if(dy<=-window.screen.height/5){
+        }else if(dy<=-window.screen.height/8){
             my=e.touches[0].clientY;
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){

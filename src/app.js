@@ -219,8 +219,8 @@
             processInput("ArrowRight");
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
-        }
-        if(dy<=-20 && interval%10==0){
+        }else if(dy<=-20){
+            my=e.touches[0].clientY;
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){
             processInput("ArrowDown");
@@ -243,8 +243,7 @@
             processInput("ArrowRight");
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
-        }
-        if(dy<=-50 && interval%20==0){
+        }else if(dy<=-50 && interval%20==0){
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){
             processInput("ArrowDown");

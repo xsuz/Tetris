@@ -24,7 +24,7 @@
         { rotate: 4, p: [[0, -1], [0, 1], [-1, 1]], color: '#00F' },  // L
         { rotate: 2, p: [[0, -1], [1, 0], [1, 1]], color: '#0FF' },  // key1
         { rotate: 2, p: [[0, -1], [-1, 0], [-1, 1]], color: '#F0F' },  // key2
-        { rotate: 1, p: [[0, 1], [1, 0], [1, 1]], color: '#FF0' },  // square
+        { rotate: 1, p: [[0, 1], [1, 0], [1, 1]], color: '#AA0' },  // square
         { rotate: 4, p: [[0, -1], [1, 0], [-1, 0]], color: '#F80' },  // T
         { rotate: 1, p: [[0, 0], [0, 0], [0, 0]], color: '#555' },  // null
     ];
@@ -219,7 +219,7 @@
             processInput("ArrowRight");
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
-        }else if(dy<=-window.screen.height/10){
+        }else if(dy<=-window.screen.height/5){
             my=e.touches[0].clientY;
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){

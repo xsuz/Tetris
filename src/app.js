@@ -220,7 +220,7 @@
         }else if(dx<=-20 && interval%6==0){
             processInput("ArrowLeft");
         }
-        if(dy<=-20 && interval%20==0){
+        if(dy<=-20 && interval%10==0){
             processInput("ArrowUp");
         }else if(dy>=20 && interval%2==0){
             processInput("ArrowDown");

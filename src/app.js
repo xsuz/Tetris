@@ -103,7 +103,6 @@
                 }
             }
             if (flag) {
-                console.log("y",y)
                 for (let Y = y; Y >=2 ; Y--) {
                     for (let X = 1; X < W-1; X++) {
                         board[X + Y * W] = board[X + (Y - 1) * W];
@@ -121,7 +120,6 @@
         if (!putBlock(current, false)) {
             current.y--;
             putBlock(current, false);
-            console.log("OK");
             delLine();
             current.x = 5;
             current.y = 4;
@@ -211,11 +209,12 @@
 
     /**handle touch screen */
     let mx=0,my=0,dx=0,dy=0;
-    document.addEventListener("touchstart",(e)=>{
+    canvas.addEventListener("touchstart",(e)=>{
         mx=e.touches[0].clientX;
         my=e.touches[0].clientY;
     })
-    document.addEventListener("touchmove",(e)=>{
+    canvas.addEventListener("touchend",(e)=>{
+        e.defaultPrevented=true
         dx=e.touches[0].clientX-mx;
         dy=e.touches[0].clientY-my;
         if(dx>=20 && interval%6==0){
@@ -232,12 +231,12 @@
 
     /**handle mouse */
     let isTracking=false;
-    document.addEventListener("mousedown",(e)=>{
+    canvas.addEventListener("mousedown",(e)=>{
         mx=e.clientX;
         my=e.clientY;
         isTracking=true;
     })
-    document.addEventListener("mousemove",(e)=>{
+    canvas.addEventListener("mousemove",(e)=>{
         if(!isTracking){
             return;
         }
@@ -253,7 +252,7 @@
             processInput("ArrowDown");
         }
     })
-    document.addEventListener("mouseup",(e)=>{
+    canvas.addEventListener("mouseup",(e)=>{
         isTracking=false;
     })
 

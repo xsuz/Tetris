@@ -214,7 +214,7 @@
         my=e.touches[0].clientY;
     })
     canvas.addEventListener("touchmove",(e)=>{
-        e.defaultPrevented=true
+        e.defaultPrevented()
         dx=e.touches[0].clientX-mx;
         dy=e.touches[0].clientY-my;
         if(dx>=20 && interval%6==0){

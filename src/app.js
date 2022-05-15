@@ -213,7 +213,7 @@
         mx=e.touches[0].clientX;
         my=e.touches[0].clientY;
     })
-    canvas.addEventListener("touchend",(e)=>{
+    canvas.addEventListener("touchmove",(e)=>{
         e.defaultPrevented=true
         dx=e.touches[0].clientX-mx;
         dy=e.touches[0].clientY-my;
